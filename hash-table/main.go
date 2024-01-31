@@ -4,12 +4,10 @@ import "fmt"
 
 const ArraySize = 10
 
-// Hashtable struct
 type HashTable struct {
 	array [ArraySize]*Bucket
 }
 
-// Init function
 func NewHashTable() *HashTable {
 	table := &HashTable{array: [ArraySize]*Bucket{}}
 
@@ -20,37 +18,31 @@ func NewHashTable() *HashTable {
 	return table
 }
 
-// Bucket struct
 type Bucket struct {
 	head *Node
 }
 
-// Bucket node struct
 type Node struct {
 	value string
 	next  *Node
 }
 
-// Hashtable insert
 func (t *HashTable) Insert(key string) {
 	index := hash(key)
 	t.array[index].Insert(key)
 }
 
-// Hashtable search
 func (t *HashTable) Search(key string) bool {
 	index := hash(key)
 	return t.array[index].Search(key)
 }
 
-// Hashtable delete
 func (t *HashTable) Delete(key string) bool {
 	index := hash(key)
 
 	return t.array[index].Delete(key)
 }
 
-// Bucket insert
 func (b *Bucket) Insert(w string) {
 	if b.head == nil {
 		b.head = &Node{value: w}
@@ -72,7 +64,6 @@ func (b *Bucket) Insert(w string) {
 	b.head = newHead
 }
 
-// Bucket search
 func (t *Bucket) Search(key string) bool {
 	currentNode := t.head
 
@@ -87,7 +78,6 @@ func (t *Bucket) Search(key string) bool {
 	return false
 }
 
-// Bucket delete
 func (t *Bucket) Delete(key string) bool {
 	if t.head == nil {
 		return false
@@ -115,7 +105,6 @@ func (t *Bucket) Delete(key string) bool {
 	return deleted
 }
 
-// Hash function
 func hash(key string) int {
 	keyLen := len(key)
 	sum := 0
