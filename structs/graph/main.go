@@ -96,18 +96,60 @@ func (v *Vertex) EdgeExists(key int) bool {
 // Add vertex
 // Add edge
 
-func main() {
-	graph := NewGraph()
+// func main() {
+// 	graph := NewGraph()
 
-	for i := 0; i < 5; i++ {
-		graph.AddVertex(i)
+// 	for i := 0; i < 5; i++ {
+// 		graph.AddVertex(i)
+// 	}
+
+// 	graph.AddVertex(1)
+
+// 	graph.AddEdge(1, 4)
+// 	graph.AddEdge(1, 3)
+// 	graph.AddEdge(2, 3)
+
+// 	graph.Print()
+// }
+
+func main() {
+	graph := map[int][]int{
+		0: {1, 2},
+		1: {0, 3},
+		2: {0, 3},
+		3: {1, 2},
+
+		4: {5},
+		5: {4},
+
+		6: {7},
+		7: {8},
+		8: {},
+	}
+	components := countComponents(graph)
+	fmt.Println("Number of connected components:", components) // Output: 2
+}
+
+func countComponents(graph map[int][]int) int {
+	count := 0
+	visited := make(map[int]bool)
+
+	for v := range graph {
+		if !visited[v] {
+			dfs(graph, visited, v)
+			count++
+		}
 	}
 
-	graph.AddVertex(1)
+	return count
+}
 
-	graph.AddEdge(1, 4)
-	graph.AddEdge(1, 3)
-	graph.AddEdge(2, 3)
+func dfs(graph map[int][]int, visited map[int]bool, node int) {
+	visited[node] = true
 
-	graph.Print()
+	for _, neighbour := range graph[node] {
+		if !visited[neighbour] {
+			dfs(graph, visited, neighbour)
+		}
+	}
 }
