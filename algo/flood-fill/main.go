@@ -64,9 +64,9 @@ func floodFill(grid [][]int, x, y int) [][]int {
 		time.Sleep(100 * time.Millisecond)
 
 		queue.Enqueue(Point{x: x + 1, y: y})
+		queue.Enqueue(Point{x: x, y: y - 1})
 		queue.Enqueue(Point{x: x - 1, y: y})
 		queue.Enqueue(Point{x: x, y: y + 1})
-		queue.Enqueue(Point{x: x, y: y - 1})
 	}
 
 	return grid
@@ -92,8 +92,8 @@ func main() {
 		{0, 2, 2, 2, 0, 0, 0, 0, 0, 2},
 		{0, 2, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 2, 0, 0, 0, 0, 0, 0, 2, 0},
-		{0, 0, 2, 0, 2, 0, 0, 2, 0, 2},
-		{0, 0, 0, 2, 0, 0, 0, 2, 0, 0},
+		{0, 2, 0, 0, 0, 0, 0, 2, 0, 2},
+		{0, 0, 2, 2, 0, 0, 0, 2, 0, 0},
 		{0, 0, 0, 0, 2, 2, 2, 0, 0, 0},
 	}
 
